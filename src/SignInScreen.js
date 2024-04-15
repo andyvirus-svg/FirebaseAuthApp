@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Picker } from 'react-native';
 import { auth } from './firebase';
 
 const SignInScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
 
   const handleSignIn = () => {
     auth()
@@ -35,6 +36,15 @@ const SignInScreen = () => {
         value={password}
         secureTextEntry
       />
+      <Picker
+        selectedValue={role}
+        style={styles.input}
+        onValueChange={(itemValue, itemIndex) => setRole(itemValue)}
+      >
+        <Picker.Item label="Select User Type" value="" />
+        <Picker.Item label="Fan" value="fan" />
+        <Picker.Item label="Artist" value="artist" />
+      </Picker>
       <Button title="Sign In" onPress={handleSignIn} />
     </View>
   );
